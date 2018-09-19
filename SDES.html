@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+	<head>	
+		<title>SDES Shit</title>
+		<script type="text/javascript"></script>
+		<script>
+			function clickButton(){
+				console.log("click");
+				var key=document.getElementById("10bk").value;
+				var string=document.getElementById("8bt").value;
+				key=key.split("");
+				var validity=true
+				string=string.split("");
+				if(key.length!=10||string.length!=8){
+					validity=false;
+				}
+				for(i=0;i<key.length;i++){
+					if (key[i]!=0&&key[i]!=1){
+						console.log("stuff");
+						validity=false;
+					}
+				}
+				for(q=0;q<string.length;q++){
+					if(string[q]!=0&&string[q]!=1){
+						console.log("otherstuff");
+						validity=false;
+					}
+				}
+				console.log(key);
+				console.log(string);
+				console.log(validity);
+				if(validity){
+					k1=keyGeneration(key);
+					k2=keyGeneration2(key);
+					document.getElementById("output").innerHTML="<table><tr><td>"+k1[0]+"</td><td>"+k1[1]+"</td><td>"+k1[2]+"</td><td>"+k1[3]+"</td><td>"+k1[4]+"</td><td>"+k1[5]+"</td><td>"+k1[6]+"</td><td>"+k1[7]+"</td></tr></table>"
+				}
+			}
+
+			function keyGeneration(key){
+				console.log("Key Valid");
+				console.log(key);
+				//P10 table 35274 10 1986
+				var p10key=[key[2],key[4],key[1],key[6],key[3],key[9],key[0],key[8],key[7],key[5]];
+				console.log(p10key);
+				var p10keyshift=[p10key[1],p10key[2],p10key[3],p10key[4],p10key[0],p10key[6],p10key[7],p10key[8],p10key[9],p10key[5]];
+				console.log(p10keyshift);
+				//P8 table 637485 10 9
+				var k1=[p10keyshift[5],p10keyshift[2],p10keyshift[6],p10keyshift[3],p10keyshift[7],p10keyshift[4],p10keyshift[9],p10keyshift[8]];
+				console.log(k1);
+				return k1
+			}
+			
+			function keyGeneration2(key){
+				var p10key=[key[2],key[4],key[1],key[6],key[3],key[9],key[0],key[8],key[7],key[5]];
+				console.log(p10key);
+				var p10keyshift=[p10key[2],p10key[3],p10key[4],p10key[0],p10key[1],p10key[7],p10key[8],p10key[9],p10key[5],p10key[6]];
+				console.log(p10keyshift);
+				//P8 table 637485 10 9
+				var k2=[p10keyshift[5],p10keyshift[2],p10keyshift[6],p10keyshift[3],p10keyshift[7],p10keyshift[4],p10keyshift[9],p10keyshift[8]];
+				console.log(k2);
+				return k2
+			}
+
+				
+		</script>
+	<link rel="icon" type="image/png" href="favicon/encryption.png" />
+	</head>
+
+	<body>
+		<h1>Simplified DES Calculator & Tutorial</h1>
+		<hr>
+		<div>
+			<label>10-Bit Key</label>
+			<input type="text" maxlength="10" id="10bk"></br></br>
+			<label>8-Bit String</label>
+			<input type="text" maxlength="8" id="8bt">
+			<button onclick="clickButton()">Calculate</button>
+		</div>
+		<hr>
+		<div id="output">
+
+		</div>
+	</body>
+	<footer>
+		<div>Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>
+		</div>
+	</footer>
+</html> 
